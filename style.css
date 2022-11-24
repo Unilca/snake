@@ -20,3 +20,21 @@ body {
   height: 50px;
   padding: 5px;
 }
+
+.snakeBody {
+  background: rgb(99, 99, 255);
+  background-size: cover;
+  border-radius: 30%;
+}
+
+.head {
+  background: rgb(31, 31, 255);
+  background-size: cover;
+  border-radius: 10%;
+}
+
+.berry {
+  background: rgb(255, 99, 138);
+  background-size: cover;
+  border-radius: 50%;
+}

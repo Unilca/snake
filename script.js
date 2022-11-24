@@ -29,3 +29,68 @@ for (let i = 0; i < excel.length; i++) {
     y--;
   }
 }
+
+//generation rng start position (x,y) for snake
+function generateSnake() {
+  let posX = Math.round(Math.random() * (10 - 3) + 3);
+  let posY = Math.round(Math.random() * (10 - 1) + 1);
+  return [posX, posY];
+}
+
+//generation Snake on start position
+let coordinates = generateSnake();
+
+let snakeBody = [
+  document.querySelector(
+    '[posX = "' + coordinates[0] + '"][posY = "' + coordinates[1] + '"]'
+  ),
+  document.querySelector(
+    '[posX = "' + (coordinates[0] - 1) + '"][posY = "' + coordinates[1] + '"]'
+  ),
+  document.querySelector(
+    '[posX = "' + (coordinates[0] - 2) + '"][posY = "' + coordinates[1] + '"]'
+  ),
+];
+
+//get class snakeBody to Snake elements
+for (let i = 0; i < snakeBody.length; i++) {
+  snakeBody[i].classList.add("snakeBody");
+}
+snakeBody[0].classList.add("head");
+
+//generation rng start position (x,y) for berry
+let berry;
+function createBerry() {
+  function generateBerry() {
+    let posX = Math.round(Math.random() * (10 - 1) + 1);
+    let posY = Math.round(Math.random() * (10 - 1) + 1);
+    return [posX, posY];
+  }
+
+  let berryCoordinates = generateBerry();
+  console.log(berryCoordinates);
+
+  berry = document.querySelector(
+    '[posX = "' +
+      berryCoordinates[0] +
+      '"][posY = "' +
+      berryCoordinates[1] +
+      '"]'
+  );
+  //not use snake cells
+  while (berry.classList.contains("snakeBody")) {
+    let berryCoordinates = generateBerry();
+    console.log(berryCoordinates);
+
+    berry = document.querySelector(
+      '[posX = "' +
+        berryCoordinates[0] +
+        '"][posY = "' +
+        berryCoordinates[1] +
+        '"]'
+    );
+  }
+  berry.classList.add("berry");
+}
+
+createBerry();
