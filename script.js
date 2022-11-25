@@ -77,6 +77,7 @@ function createBerry() {
       berryCoordinates[1] +
       '"]'
   );
+
   //not use snake cells
   while (berry.classList.contains("snakeBody")) {
     let berryCoordinates = generateBerry();
@@ -92,5 +93,47 @@ function createBerry() {
   }
   berry.classList.add("berry");
 }
-
 createBerry();
+
+//teach the snake how to move
+//save array with coordinates
+function move() {
+  let snakeCoordinates = [
+    snakeBody[0].getAttribute("posX"),
+    snakeBody[0].getAttribute("posY"),
+  ];
+
+  //move head on one cells
+  snakeBody[0].classList.remove("head");
+  snakeBody[snakeBody.length - 1].classList.remove("snakeBody");
+  snakeBody.pop();
+
+  //teach snake ignore walls (//delete class from old cells)
+  //if <10 then move right on one cells
+  if (snakeCoordinates[0] < 10) {
+    snakeBody.unshift(
+      document.querySelector(
+        '[posX = "' +
+          (+snakeCoordinates[0] + 1) +
+          '"][posY = "' +
+          snakeCoordinates[1] +
+          '"]'
+      )
+    );
+    //if =10 then start move from left side
+  } else {
+    snakeBody.unshift(
+      document.querySelector(
+        '[posX = "1"][posY = "' + snakeCoordinates[1] + '"]'
+      )
+    );
+  }
+
+  //give head and body class new cells
+  snakeBody[0].classList.add("head");
+  for (let i = 0; i < snakeBody.length; i++) {
+    snakeBody[i].classList.add("snakeBody");
+  }
+}
+
+let interval = setInterval(move, 300);
